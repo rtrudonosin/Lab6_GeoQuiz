@@ -99,6 +99,21 @@ fun GeoQuiz(modifier: Modifier = Modifier) {
                     }
                 }
             }
+            if (!canGetAnswer) {
+                Button(
+                    onClick = {
+                        if (round < 5) {
+                            round++
+                            canGetAnswer = true
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(10.dp)
+                ) {
+                    Text("Next")
+                }
+            }
         }
     }
 }
