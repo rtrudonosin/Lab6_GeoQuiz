@@ -7,6 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.Button
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.style.TextAlign
@@ -46,7 +51,56 @@ fun GeoQuiz(modifier: Modifier = Modifier) {
         Question("The Amazon River is the longest river in the Americas.", true),
         Question("Lake Baikal is the world's oldest and deepest freshwater lake.", true)
     )
+    var round by remember { mutableStateOf(0) }
+    var correct by remember { mutableStateOf(0) }
+    var canGetAnswer by remember { mutableStateOf(true) }
 
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = questions[round].quest,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                textAlign = TextAlign.Center
+            )
+            if (canGetAnswer) {
+                Row(
+                    modifier = Modifier
+                        .padding(30.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+
+                    Button(onClick = {
+                        if (!questions[round].answer) {
+                            correct++
+                        }
+
+                        canGetAnswer = false
+                    }) {
+                        Text("True")
+                    }
+
+                    Button(onClick = {
+                        if (questions[round].answer) {
+                            correct++
+                        }
+
+                        canGetAnswer = false
+                    }) {
+                        Text("False")
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
