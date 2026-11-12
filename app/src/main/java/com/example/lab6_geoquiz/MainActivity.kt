@@ -20,8 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Lab6_GeoQuizTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    GeoQuiz(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -31,17 +30,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun GeoQuiz(modifier: Modifier = Modifier) {
+
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     Lab6_GeoQuizTheme {
-        Greeting("Android")
+        GeoQuiz()
     }
 }
