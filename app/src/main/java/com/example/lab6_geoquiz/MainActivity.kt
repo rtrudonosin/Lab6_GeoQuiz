@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,6 +56,7 @@ fun GeoQuiz(modifier: Modifier = Modifier) {
     var round by remember { mutableStateOf(0) }
     var correct by remember { mutableStateOf(0) }
     var canGetAnswer by remember { mutableStateOf(true) }
+    var showDialog by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -105,14 +108,45 @@ fun GeoQuiz(modifier: Modifier = Modifier) {
                         if (round < 5) {
                             round++
                             canGetAnswer = true
+                        } else {
+                            showDialog = true
                         }
                     },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(10.dp)
                 ) {
-                    Text("Next")
+                    if (round < 5) {
+                        Text("Next")
+                    } else {
+                        Text("Итоги")
+                    }
                 }
+            }
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = {
+                        showDialog = false
+                    },
+
+                    title = {
+                        Text("Результаты")
+                    },
+
+                    text = {
+                        Text("$correct правильных ответов")
+                    },
+
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                showDialog = false
+                            }
+                        ) {
+                            Text("Закрыть")
+                        }
+                    }
+                )
             }
         }
     }
