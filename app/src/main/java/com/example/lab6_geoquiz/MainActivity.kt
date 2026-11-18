@@ -141,9 +141,12 @@ fun GeoQuiz(modifier: Modifier = Modifier) {
                         TextButton(
                             onClick = {
                                 showDialog = false
+                                correct = 0
+                                round = 0
+                                canGetAnswer = true
                             }
                         ) {
-                            Text("Закрыть")
+                            Text("Заново")
                         }
                     }
                 )
